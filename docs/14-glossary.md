@@ -1,0 +1,23 @@
+# 14 — Glossary
+
+- **AELC:** Agentic Engineering Lifecycle; engineering method integrating AI agents into SDLC with human understanding and accountability.
+- **Agent harness:** host environment such as Claude Code, Codex, or Copilot that runs agent/tool interactions.
+- **Method:** principles, protocols, role definitions, and workflow specifications; distinct from the harness and runtime.
+- **Runtime:** Python code that implements identity, context, evidence, storage, installer, and other controlled services.
+- **Project context:** shared configuration and knowledge for a target project, canonically under its `.aelc/` when initialized.
+- **Human member ID:** stable internal identifier for a real person; not a mutable provider username or a shared AI account.
+- **Platform identity:** AI harness or external-platform account used in a session; may differ from human identity.
+- **Project membership:** member's relationship/role/permissions within one project, separate from global identity.
+- **Identity assurance:** degree to which an identity assertion is supported by authentication; self-declared is not provider-verified.
+- **Activity attribution:** record connecting a session and operation to its human, harness, agent, project, and work item, with assurance limitations.
+- **Evidence:** source-backed, inspectable support for a specific claim, test, decision, or understanding demonstration; not an ungrounded summary.
+- **Teach-back:** member explains material system reasoning in their own words after agent guidance; targeted checks detect gaps without full repeated investigation.
+- **Knowledge level:** Unknown, Aware, Working, or Deep for a project-specific knowledge area.
+- **Knowledge freshness:** whether prior evidence remains current, including a possible Stale/revalidation-required status.
+- **Knowledge coverage:** distribution of demonstrated knowledge across team members for critical parts of a project.
+- **Accountability:** acceptance of change/risk by an authorized human/team/organization; separate from an agent's behavioral responsibility.
+- **Capability:** provider-neutral function such as reading a document or creating an authorized task.
+- **MCP:** Model Context Protocol, a mechanism for connecting tools/data; one possible capability-provider transport, not the AELC method itself.
+- **Global installation:** user-machine installation of AELC runtime and harness entry points, once for use across projects.
+- **Project initialization:** creation/connection of minimal project-specific AELC state without cloning framework source into the target project.
+- **MVP v0.1:** the first foundation release proving global installation and safe project initialization, not a complete SDLC automation suite.
