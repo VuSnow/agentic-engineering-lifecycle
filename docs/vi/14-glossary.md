@@ -1,0 +1,23 @@
+# 14 — Thuật ngữ sử dụng trong AELC
+
+- **AELC:** Agentic Engineering Lifecycle; engineering method đưa AI agents vào SDLC nhưng vẫn giữ human understanding và accountability.
+- **Agent harness:** môi trường như Claude Code, Codex hoặc Copilot thực thi agent và tương tác với tools.
+- **Method:** nguyên tắc, protocols, role definitions và workflow specifications; khác với harness và runtime.
+- **Runtime:** Python code triển khai identity, context, evidence, storage, installer và các controlled services khác.
+- **Project context:** shared configuration và knowledge của application project, canonical tại `.aelc/` sau khi init.
+- **Human member ID:** định danh nội bộ ổn định cho một người thực tế; không phải provider username có thể đổi hay shared AI account.
+- **Platform identity:** account của AI harness hoặc platform ngoài dùng trong session; có thể khác human identity.
+- **Project membership:** mối quan hệ/role/permissions của member trong một project cụ thể, tách khỏi global identity.
+- **Identity assurance:** mức độ identity claim được hỗ trợ bởi authentication; self-declared không được provider verify.
+- **Activity attribution:** record gắn session và operation với human, harness, agent, project và work item, cùng giới hạn assurance.
+- **Evidence:** hỗ trợ cho claim, test, decision hoặc understanding demonstration có nguồn và có thể kiểm tra; không phải summary thiếu căn cứ.
+- **Teach-back:** member giải thích lại system reasoning quan trọng bằng lời mình sau khi được agent hướng dẫn; kiểm tra gap có trọng tâm mà không bắt điều tra lại toàn bộ.
+- **Knowledge level:** Unknown, Aware, Working hoặc Deep đối với một area cụ thể trong project.
+- **Knowledge freshness:** mức độ evidence trước đó còn cập nhật, bao gồm trạng thái Stale/cần revalidation.
+- **Knowledge coverage:** phân phối demonstrated knowledge trong team đối với những thành phần critical của project.
+- **Accountability:** người/team/tổ chức có thẩm quyền chấp nhận change/risk, tách khỏi nghĩa vụ hành vi của agent.
+- **Capability:** chức năng độc lập provider, ví dụ đọc document hoặc tạo task đã được authorize.
+- **MCP:** Model Context Protocol, một cơ chế kết nối tools/data; là transport/provider integration, không phải bản thân AELC method.
+- **Global installation:** cài AELC runtime và harness entry points một lần trên máy user để dùng nhiều project.
+- **Project initialization:** tạo hoặc kết nối project-specific AELC state tối thiểu mà không copy framework source vào application project.
+- **MVP v0.1:** release foundation đầu tiên chứng minh global installation và project initialization an toàn; không phải bộ tự động hóa SDLC đầy đủ.
