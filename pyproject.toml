@@ -1,0 +1,177 @@
+
+# =========================================
+# AELC - Agentic Engineering Lifecycle
+# =========================================
+# Central configuration file for the AELC Python project.
+#
+# Purpose:
+# - Define project metadata and Python version requirements.
+# - Manage runtime and development dependencies.
+# - Define CLI entry points.
+# - Configure the build system and testing tools.
+
+
+# =========================================
+# 1. Project Metadata
+# =========================================
+# Define the package identity, version, description,
+# and Python compatibility requirements.
+
+[project]
+
+# Distribution package name.
+# This does not automatically create an "aelc" terminal command.
+name = "aelc"
+
+# Current version of the AELC package.
+version = "0.1.0"
+
+# Short description of the project.
+description = "Agentic Engineering LifeCycle"
+
+# Use README.md as the package's long description.
+# The file must exist in the project root directory.
+readme = "README.md"
+
+# Supported Python versions:
+# - Python 3.11, 3.12, and 3.13.
+# - Python 3.14 and later are currently excluded.
+#
+# Compatibility should be verified through testing.
+requires-python = ">=3.11, <3.14"
+
+
+# =========================================
+# 2. Runtime Dependencies
+# =========================================
+# Third-party libraries required to run AELC.
+#
+# These dependencies are automatically resolved and installed
+# when users install the AELC package.
+
+dependencies = [
+    # Typer provides a framework for building CLI applications.
+    #
+    # It will be used to implement commands such as:
+    #   aelc init
+    #   aelc --help
+    #
+    # Allow Typer versions >=0.12 and <1.0.
+    "typer>=0.12,<1",
+    "rich>=13,<16",
+    "pyfiglet>=1.0.4",
+]
+
+
+# =========================================
+# 3. Optional Dependencies
+# =========================================
+# Define additional dependency groups that are not required
+# for the normal execution of AELC.
+#
+# The "dev" group contains tools used during development
+# and testing.
+#
+# Install AELC with development dependencies:
+#   python -m pip install -e ".[dev]"
+#
+# Install AELC without development dependencies:
+#   python -m pip install -e .
+
+[project.optional-dependencies]
+
+dev = [
+    # Pytest is used to write and execute automated tests.
+    # Allow pytest versions >=8.0 and <10.0.
+    "pytest>=8,<10"
+]
+
+
+# =========================================
+# 4. CLI Entry Points
+# =========================================
+# Define terminal commands created when AELC is installed.
+#
+# Syntax:
+#   <command-name> = "<python-module>:<callable>"
+#
+# Example:
+#   aelc = "aelc.cli:app"
+#
+# Where:
+# - aelc: The command users execute in their terminal.
+# - aelc.cli: The Python module located at src/aelc/cli.py.
+# - app: The Typer application object exposed by the module.
+#
+# The entry point will be added when the CLI is implemented.
+
+[project.scripts]
+aelc = "aelc.cli:app"
+
+# =========================================
+# 5. Build System
+# =========================================
+# Configure the tools required to build and package AELC.
+#
+# The build backend converts Python source code into
+# distributable formats such as:
+# - Wheel (.whl)
+# - Source distribution (.tar.gz)
+
+[build-system]
+
+# Packages required during the build process.
+# Hatchling is a build dependency, not a runtime dependency.
+requires = ["hatchling"]
+
+# Use Hatchling as the Python package build backend.
+build-backend = "hatchling.build"
+
+
+# =========================================
+# 6. Hatchling Configuration
+# =========================================
+# Configure how Hatchling builds the AELC wheel package.
+#
+# AELC follows the src layout:
+#
+#   aelc/
+#   ├── pyproject.toml
+#   └── src/
+#       └── aelc/
+#           ├── __init__.py
+#           └── cli.py
+#
+# Explicitly specify the directory containing
+# the Python package to include in the wheel.
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aelc"]
+
+
+# =========================================
+# 7. Pytest Configuration
+# =========================================
+# Configure pytest for automated testing.
+#
+# Run all tests using:
+#   python -m pytest
+
+[tool.pytest.ini_options]
+# Default directory where pytest searches for tests.
+#
+# Example:
+#   tests/
+#   ├── test_cli.py
+#   └── test_identity.py
+testpaths = ["tests"]
+
+# Add the src directory to the Python import path
+# when running pytest.
+#
+# This allows tests to import AELC modules directly:
+#   from aelc.cli import app
+#
+# Note: This configuration only affects pytest.
+# It does not replace installing AELC into the Python environment.
+pythonpath = ["src"]
