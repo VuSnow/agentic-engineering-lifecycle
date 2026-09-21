@@ -17,7 +17,6 @@ $ErrorActionPreference = "Stop"
 
 $ProjectRoot = $PSScriptRoot
 
-
 # =========================================
 # Check uv
 # =========================================
@@ -38,7 +37,6 @@ if (-not (Test-Path $Pyproject)) {
     exit 1
 }
 
-
 # =========================================
 # Check installation prerequisites
 # =========================================
@@ -54,7 +52,6 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-
 # =========================================
 # Install AELC CLI globally
 # =========================================
@@ -69,13 +66,25 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# =========================================
+# Deploy harness adapters
+# =========================================
+
+Write-Host "Installing AELC harness adapters..."
+
+uv run --project $PSScriptRoot `
+    aelc install-harness --harness $Harness
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Harness adapter installation failed."
+    exit $LASTEXITCODE
+}
+
+Write-Host "AELC installation completed."
 
 # =========================================
 # Complete installation
 # =========================================
-
-Write-Host ""
-Write-Host "AELC CLI installation completed."
 Write-Host "Selected harness: $Harness"
 Write-Host "Harness adapter deployment: not yet implemented."
 Write-Host ""

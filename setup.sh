@@ -125,13 +125,23 @@ echo ""
 uv tool install "$SCRIPT_DIR"
 
 # =========================================
-# Complete installation
+# Deploy harness adapters
 # =========================================
 
-echo ""
-echo "AELC CLI installation completed."
-echo ""
+echo "Installing AELC harness adapters..."
 
+if ! uv run --project "$SCRIPT_DIR" \
+    aelc install-harness --harness "$HARNESS"; then
+
+    echo "Harness adapter installation failed." >&2
+    exit 1
+fi
+
+echo "AELC installation completed."
+
+# =========================================
+# Complete installation
+# =========================================
 echo "Selected harness: $HARNESS"
 echo "Harness adapter deployment: not yet implemented."
 echo ""

@@ -14,6 +14,8 @@ from aelc.installer.prerequisites import (
     check_harness_prerequisite,
 )
 
+from .adapter import AdapterInstallResult, install_harness_adapters
+
 
 @dataclass(frozen=True)
 class HarnessInfo:
@@ -67,3 +69,14 @@ def prepare_installation(
     return InstallationPlan(
         harnesses=tuple(available),
     )
+
+def complete_installation(
+    selection: HarnessSelection,
+) -> list[AdapterInstallResult]:
+    """Validate the environment and install harness adapters."""
+    
+    # Reuse the prerequisite validation from Step 2.
+    prepare_installation(selection)
+
+    # Deploy skills only after prerequisites are satisfied.
+    return install_harness_adapters(selection)

@@ -14,6 +14,9 @@ from aelc.project import (
 from aelc.ui import print_welcome, print_status
 from aelc.installer.models import HarnessSelection
 from aelc.installer.service import InstallationError, prepare_installation
+from .installer.models import HarnessSelection
+from .installer.service import complete_installation
+from .installer.prerequisites import PrerequisiteError
 
 
 app = typer.Typer(
@@ -125,3 +128,33 @@ def install_check(
     typer.echo(
         "All installation prerequisites satisfied."
     )
+
+@app.command("install-harness")
+def install_harness(
+    harness: HarnessSelection = typer.Option(
+        ...,
+        "--harness",
+        help="Target harness: claude, codex, or all."
+    ),
+) -> None:
+    """Install AELC skills into selected AI coding harnesses."""
+
+    typer.echo("Installing AELC harness adapters...")
+    
+    try:
+        results = complete_installation(harness)
+    except (PrerequisiteError, OSError, ValueError) as exc:
+        typer.echo(
+            f"Installation failed: {exc}",
+            err=True
+        )
+        raise typer.Exit(code=1) from exc
+    
+    for result in results:
+        typer.echo(
+            f"[{result.status}] "
+            f"{result.harness}: "
+            f"{result.destination}"
+        )
+        
+    typer.echo("Harness adapter installation completed.")
