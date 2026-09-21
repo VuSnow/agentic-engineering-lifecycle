@@ -12,6 +12,8 @@ from aelc.project import (
     inspect_project,
 )
 from aelc.ui import print_welcome, print_status
+from aelc.installer.models import HarnessSelection
+from aelc.installer.service import InstallationError, prepare_installation
 
 
 app = typer.Typer(
@@ -91,3 +93,35 @@ def doctor(
 
     if not status.healthy:
         raise typer.Exit(code=1)
+    
+@app.command("install-check")
+def install_check(
+    harness: HarnessSelection = typer.Option(
+        ...,
+        "--harness",
+        help="AI Coding harness to install AELC for."
+    )
+) -> None:
+    """Validate prerequisites for global AELC installation."""
+    
+    print_welcome("installation")
+    typer.echo("Checking installation prerequisites...")
+    
+    try:
+        plan = prepare_installation(harness)
+    except InstallationError as exc:
+        typer.echo(
+            f"Error: {exc}",
+            err=True
+        )
+        raise typer.Exit(code=1) from exc
+    
+    for info in plan.harnesses:
+        typer.echo(
+            f"[OK] {info.harness.value}: "
+            f"{info.executable_path}"
+        )
+        
+    typer.echo(
+        "All installation prerequisites satisfied."
+    )
